@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+    <div id = "page">
+      <div id ="menu">
+        <h1 class="title"><span id="userName"></span>'s chat</h1>
+        <h1 class="status"><span id="userStatus"></span></h1>
+        <img id="options" src="img/options.png">
+      </div>
+
+      <div id = "chatslist">
+        <script type="x-template/underscore" id="contactView">
+   			<div class = 'friend'>
+            <label class='contact'><a class="single"><%= name %></a></label>
+            <label class = 'contactStatus'><%= status %></label>
+            <label class = 'lastActiveDate'><%= lastActiveDate %></label>
+            <img id="trash" src="img/cross.png">
+            </div>
+        </script> 
+      </div>
+                 
+      <div id = "chat">
+        <script type="x-template/underscore" id="messageView">
+            <label id = 'messageAuthor'><%= author%></label>  
+            <label id = 'messageText' style="height:50px;"><%= text%></label> 
+            <img class="messageEdit" src="img/edit.png">
+            <img class="messageDelete" src="img/trash.png">
+            <img class="messageColor" src="img/color.png">   
+            <label id = 'messageDate'><%= date%></label>  
+        </script> 
+      </div>
+      
+      <div id = "textbox"> 
+          <input type="text" id = "messageInput">
+          <label id="sendMessage" for="messageInput">Submit</label>
+          <img id="searchMessage" src="img/search.png">
+          <img id="deleteChat" src="img/clear.png">
+          <img id="link" src="img/link.png">
+          <input type="color" id="paintMessage" name="current-color" value="#fff">
+      </div>
+      <div id = "smiley">
+          <img id="smile" src="img/happy1.png">
+          <img id="happy" src="img/happy.png">
+          <img id="bus" src="img/happy2.png">
+          <img id="blink" src="img/devil.png">
+          <img id="crying" src="img/sad.png">
+          <img id="laugh" src="img/surprised2.png">
+          <img id="broken-heart" src="img/inlove.png">
+          <img id="sleeping" src="img/cool.png">
+          <img id="cap" src="img/kiss.png">
+          <img id="thumsup" src="img/laughing.png">
+          <img id="clown" src="img/sad2.png">
+          <img id="bored" src="img/tongue.png">
+      </div>
+    </div>
+  <script src="vendor/jquery.js"></script>
+  <script src="vendor/json2.js"></script>
+  <script src="vendor/underscore.js"></script>
+  <script src="vendor/backbone.js"></script>
+  <script src="vendor/backbone.radio.js"></script>
+  <script src="vendor/backbone.marionette.min.js"></script>
+  <script type="text/javascript" src="jquery.js"></script>
+   <script type="text/javascript" src="manager.js"></script>
+  <script type="text/javascript" src="models.js"></script>
+  <script type="text/javascript" src="instances.js"></script>
+  <script type="text/javascript" src="views.js"></script>
+  <script type="text/javascript" src="main.js"></script>
+
+  </body>
+</html> 
