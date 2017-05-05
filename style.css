@@ -1,22 +1,21 @@
 body {
 	margin: 0;
 	padding: 0;
-	background: -webkit-linear-gradient(top left, #FDF5E6, white 45%) ;
+	
 }
 
 #page {
-	margin: 30px 210px 30px 210px;
+	margin: 10px 210px 30px 210px;
 	padding-top: 0px;
 	padding-bottom: 50px;
-	border: 2px solid #999900;
 	box-shadow: 0 0 5px rgba(0,0,0,0.8);
-	background-color: #FFFFF0;
+	background-color: white;
 }
 #menu {
 	widows: 100%;
 	height: 50px;
 	padding: 5px;
-	background-color: #999900;
+	background-color: #1ba8e0;
 }
 
 #menu .title {
@@ -54,37 +53,34 @@ body {
 	-moz-transform: scale(1.2);
 	-o-transform: scale(1.2);
 }
+#searchmessage{
+    width: 220px;
+    height: 30px;
+    background-color: #36445e;
+    border: none;
+    border-bottom:solid gray 1px;
+}
 
 #chatslist {
 	float: left;
-	width: 200px;
-	height: 562px;
-	margin: 2px 20px 0 20px;
-	background-color: #FFFFF0;
-	border-right: 1px solid #999900;
-	overflow-y: auto;
+	width: 220px;
+	height: 630px;
+	margin: 0px 20px 0 0px;
+	background-color: #36445e;
+	
 }
 
-#plus {
-	width: 60px;
-	margin: -10px 0 0 60px;
-	-moz-transition: all 0.1s ease-out;
-	-o-transition: all 0.1s ease-out;
-	-webkit-transition: all 0.1s ease-out;
-}
-
-#plus:hover {
-	cursor: pointer;
-	-webkit-transform: scale(1.2);
-	-moz-transform: scale(1.2);
-	-o-transform: scale(1.2);
+.friend{
+	background-color: #36445e;
+	height:70px;
+	border-bottom: solid gray 1px;
 }
 
 .contact {
 	float: left;
-	margin: 10px 100px 0 0px;
+	margin: 10px 100px 0px 5px;
 	text-align: center;
-	color: black;
+	color: white;
 	font-size: 15px;
 	text-decoration: none;
 	font-weight: 100;
@@ -92,16 +88,16 @@ body {
 }
 
 .contact a:hover {
-	color: #999900;
+	color: #f44336;
 }
 
 .single.active{
-	color: #999900;
+	color: #f44336;
 }
 
 .contactStatus {
 	float: left;
-	margin: -3px 100px 0 0px;
+	margin: 2px 100px 0px 5px;
 	text-align: center;
 	color: gray;
 	font-size: 10px;
@@ -112,7 +108,7 @@ body {
 
 .lastActiveDate {
 	float: left;
-	margin: -12px 100px 0 170px;
+	margin: 2px 100px 0 190px;
 	text-align: center;
 	color: gray;
 	font-size: 8px;
@@ -120,21 +116,20 @@ body {
 	font-weight: 100;
 	font-family: monospace;
 }
-
-#chatslist img{
+#ava{
+	width:40px;
+	height:40px;
+	float:left;
+	margin:7px 0px 0px 10px;
+}
+#trash{
 	width: 10px;
 	float: right;
-	margin: -25px 8px 0 0px;
-	-moz-transition: all 0.1s ease-out;
-	-o-transition: all 0.1s ease-out;
-	-webkit-transition: all 0.1s ease-out;
+	margin: -43px 8px 0px 0px;
 }
 
-#chatslist img:hover{
+#trash:hover{
 	cursor: pointer;
-	-webkit-transform: scale(1.2);
-	-moz-transform: scale(1.2);
-	-o-transform: scale(1.2);
 }
 #smiled{
 	width:16px;
@@ -144,7 +139,7 @@ body {
 	margin: 20px 20px 20px 240px;
 	height: 400px;
 	background-color: #FFFFF0;
-	border-bottom: 1px solid #999900;
+	border-bottom: 1px solid #1ba8e0;
 	overflow-y: auto;
 }
 
@@ -152,7 +147,7 @@ body {
 	width: 600px;
 	float: left;
 	margin: 10px 0px 1px 0px;
-	color: red;
+	color: #1ba8e0;
 	font-size: 10px;
 	text-decoration: none;
 	font-weight: 100;
@@ -163,10 +158,8 @@ body {
 	width: 600px;
 	float: left;
 	margin: 0px 0px 1px 0px;
-	font-size: 15px;
 	text-decoration: none;
 	font-weight: 100;
-	font-family: monospace;
 }
 
 #messageDate {
@@ -198,23 +191,22 @@ body {
 
 #messageText img {
 	width: 30px;
-	float: left;
 	margin: 10px 0px 0px 3px;
 }
 
 #textbox {
 	height: 100px;
-	margin: 20px 20px 0 240px;
+	margin: 20px 0px 0 240px;
 	background-color: #FFFFF0;
 	/*border: 1px solid #999900;*/
 }
 
 #messageInput {
-	border: 1px solid #999900;
+	border: 1px solid #1ba8e0;
 	float: left;
-	margin: 20px 10px 20px 20px;
-	width: 250px;
-	height: 50px;
+	margin: 20px 0px 20px 20px;
+	width: 385px;
+	height: 30px;
 }
 
 #sendMessage {
@@ -232,29 +224,11 @@ body {
 	color: #999900;
 }
 
-#textbox input[type="color"] {
-	-webkit-appearance: none;
-	border: none;
-	width: 30px;
-	height: 30px;
-	margin: 30px 40px 0 30px;
-	-webkit-transition: all 0.1s ease-out;
-}
 
-#textbox input[type="color"]:hover{
-	cursor: pointer;
-	-webkit-transform: scale(1.2);
-	-moz-transform: scale(1.2);
-	-o-transform: scale(1.2);
-}
-
-#textbox input[type="color"]::-webkit-color-swatch-wrapper {
-	padding: 0;
-}
 
 #textbox img {
 	width: 30px;
-	margin: 30px 0px 0 0px;
+	margin: 15px 0px 5px 5px;
 	-moz-transition: all 0.1s ease-out;
 	-o-transition: all 0.1s ease-out;
 	-webkit-transition: all 0.1s ease-out;
@@ -272,7 +246,6 @@ body {
 	margin-left: 250px;
 }
 #smiley img {
-	width: 30px;
 	margin: 5px 0 0 5px;
 	-moz-transition: all 0.1s ease-out;
 	-o-transition: all 0.1s ease-out;

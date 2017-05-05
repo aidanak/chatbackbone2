@@ -25,7 +25,6 @@ var MessageView = Marionette.View.extend({
 		},
 		'click @ui.delete': function() {
 			var l = new Messages();
-			if(confirm("Are you sure you want to delete message?")){
 				for(var i = 0; i < m.length; i++){
 	    			if ((m.models[i].get('author') === $("#userName").text() && m.models[i].get('receiver') === $(".single.active").text()) || (m.models[i].get('author') === $(".single.active").text() && m.models[i].get('receiver') === $("#userName").text())) {
 	    				if(m.models[i].get('text') === this.ui.text.text()){
@@ -51,11 +50,9 @@ var MessageView = Marionette.View.extend({
 					el: '#chat',
 					collection: l
 				}).render();  
-			} 
 		},
 		'click @ui.edit':function(){
 				var l = new Messages();
-				if(confirm("Would you like to change the message text?")){
 					var newMessageText = prompt('Enter your message', this.ui.text.text());
 					for(var i = 0; i < m.length; i++){
 		    			if ((m.models[i].get('author') === $("#userName").text() && m.models[i].get('receiver') === $(".single.active").text()) || (m.models[i].get('author') === $(".single.active").text() && m.models[i].get('receiver') === $("#userName").text())) {
@@ -83,12 +80,11 @@ var MessageView = Marionette.View.extend({
 					el: '#chat',
 					collection: l
 				}).render();  
-				}	
+				
 		},
 		'click @ui.color':function(){
 					var l = new Messages();
-					if(confirm("Would you like to change the message color?")){
-						var newMessageColor = prompt('Enter your message', 'black');
+						var newMessageColor = prompt('Enter your color name','red,blue,green,yellow');
 						for(var i = 0; i < m.length; i++){
 			    			if ((m.models[i].get('author') === $("#userName").text() && m.models[i].get('receiver') === $(".single.active").text()) || (m.models[i].get('author') === $(".single.active").text() && m.models[i].get('receiver') === $("#userName").text())) {
 			    				if(m.models[i].get('text') === this.ui.text.text()){
@@ -97,7 +93,7 @@ var MessageView = Marionette.View.extend({
 			    				}
 			    			}
 			    		} 
-					}
+					
 				new MessagesView({
 					el: '#chat',
 					collection: l

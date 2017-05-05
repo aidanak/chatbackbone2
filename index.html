@@ -3,50 +3,56 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   </head>
   <body>
     <div id = "page">
       <div id ="menu">
-        <h1 class="title"><span id="userName"></span>'s chat</h1>
+        <h1 class="title"><span id="userName"></span></h1>
         <center><input id="nameentry" style="display:none;"></input><center>
         <h1 class="status"><span id="userStatus"></span></h1>
          <center><input id="statusentry" style="display:none;"></input><center>
       </div>
 
       <div id = "chatslist">
+        <div class="searchmessage">
+        <input type="text" class="form-control" id="searchMessage" placeholder="Search for...">
+      </div>
         <script type="x-template/underscore" id="contactView">
    			<div class = 'friend'>
+            <img src="img/ava.png" id="ava">
             <label class='contact'><a class="single"><%= name %></a></label>
             <label class = 'contactStatus'><%= status %></label>
             <label class = 'lastActiveDate'><%= lastActiveDate %></label>
             <img id="trash" src="img/cross.png">
-            </div>
+          </div>
         </script> 
       </div>
-                 
+             
       <div id = "chat">
         <script type="x-template/underscore" id="messageView">
+          <div>
+            <input id="selected" type="checkbox" style="float:right;"></input>
             <label id = 'messageAuthor'><%= author%></label>  
-            <label id = 'messageText' style="height:50px;"><%= text%></label> 
+            <label id = 'messageText' ><%= text%></label> 
             <img class="messageEdit" src="img/edit.png">
             <img class="messageDelete" src="img/trash.png">
             <img class="messageColor" src="img/color.png">   
-            <input id="selected" type="checkbox"></input><center>
             <label id = 'messageDate'><%= date%></label>  
+          </div>
         </script> 
       </div>
       
       <div id = "textbox"> 
-          <input type="text" id = "messageInput">
-          <label id="sendMessage" for="messageInput">Submit</label>
-          <img id="searchMessage" src="img/search.png">
-          <img id="deleteChat" src="img/clear.png">
+          <input type="text" id = "messageInput"></input>
+          <img id="sendMessage" src="img/arrows.png" for="messageInput" style="width:40px;height:40px">
+          <img id="deleteChat" src="img/trash.png">
           <img id="link" src="img/link.png">
-          <label id="deleteall">Delete selected</label>
+          <img id="deleteall" src="img/deleteselected.png" style="width:40px;height:40px">
+          <img id="colorall" src="img/colorall.png" style="width:32px;height:32px">
       </div>
       <div id = "smiley">
           <img id="smile" src="img/happy1.png">
-          <img id="happy" src="img/happy.png">
           <img id="bus" src="img/happy2.png">
           <img id="blink" src="img/devil.png">
           <img id="crying" src="img/sad.png">

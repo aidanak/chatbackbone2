@@ -1,9 +1,10 @@
 $(document).ready(function(){
+	//localStorage.clear();
 	var userName = prompt('What is your name?', 'name');
 	var name = document.getElementById('userName');
 	name.innerHTML = userName;
 
-	var userStatus = prompt('Enter your status (active, passive, bored etc)', 'mood');
+	var userStatus = prompt('Enter your status');
 	var status = document.getElementById('userStatus');
 	status.innerHTML = userStatus;
 
@@ -97,7 +98,7 @@ $(document).ready(function(){
 	$("#smiley img").click(function(){
 		var receiver = $('.single.active').text();
 		 var image = $(this).attr("src").replace("image","")
-		 $('this').attr('style','height:8px;width:8px');
+		 //$('this').attr('style','height:8px;width:8px');
 		if(receiver) {
 			var date = new Date();
 		  	var time = date.getHours() + ':' + date.getMinutes();
@@ -115,7 +116,7 @@ $(document).ready(function(){
 			var receiver = document.querySelector('.single');
 			receiver.className = 'single active';
 		} else {
-			alert("Please choose a chat");
+			alert("Choose a chat");
 		}
 	});
 	$("#link").click(function(){
@@ -139,7 +140,7 @@ $(document).ready(function(){
 			var receiver = document.querySelector('.single');
 			receiver.className = 'single active';
 		} else {
-			alert("Please choose a chat");
+			alert("Choose a chat");
 		}
 	});
 	$("#deleteall").click(function(){
@@ -147,6 +148,7 @@ $(document).ready(function(){
 		for(var i = 0; i < m.length; i++){
 	    			if ((m.models[i].get('author') === $("#userName").text() && m.models[i].get('receiver') === $(".single.active").text()) || (m.models[i].get('author') === $(".single.active").text() && m.models[i].get('receiver') === $("#userName").text())) {
 	    				if(m.models[i].get('selected') === 'yes'){
+	    					m.models[i].set('selected','');
 	    					m.models[i].set('text', 'This message was deleted');
 	    					$('label').remove('#messageAuthor');
 					    	$('label').remove('#messageText');
@@ -209,7 +211,6 @@ $(document).ready(function(){
 	$("#deleteChat").click(function(){
 		var receiver = $('.single.active').text();
 		if(receiver){
-			if(confirm("Are you sure you want to delete the message history?")) {
 				for(var i = 0; i < m.length; i++){
 					if((m.models[i].get('author') === receiver && m.models[i].get('receiver') === userName) || (m.models[i].get('receiver') === receiver && m.models[i].get('author') === userName)) {
 						m.models[i].set('deleted','yes');
@@ -217,22 +218,69 @@ $(document).ready(function(){
 					}
 				}
 				$("#chat").html("");
-		  	}
+		  	
 		} else {
-			alert("Please chose a chat");
+			alert("Choose a chat");
 		}
 	});
-	$("#searchMessage").click(function(){
-		var searchedMessage = prompt('Enter the message you search.', 'message');
+	$("#searchMessage").keyup(function(e){
+		if(e.keyCode==13){
+		l=new Messages();
+		var searchedMessage = $("#searchMessage").val();
 		var receiver = $('.single.active').text();
 		var cnt = 0;
 		for(var i = 0; i < m.length; i++){
 			if((m.models[i].get('author') === receiver && m.models[i].get('receiver') === userName) || (m.models[i].get('receiver') === receiver && m.models[i].get('author') === userName)) {
 				if(m.models[i].get('text') === searchedMessage){
 					cnt++;
+					l.add(m.models[i])
 				}
 			}
 		}
 		alert("There is " + cnt + " messages matched your search.");
+		$("#chat").html("");
+		new MessagesView({
+					el: '#chat',
+					collection: l
+				}).render(); 
+	}
+	});
+
+	var renderMessagesInSpan = function(author,text,date,color){
+		var message= document.createElement('label');
+		message.style.color=color;
+		message.innerHTML=text;
+  		return '<div style="margin-bottom:20px;"><input id="selected" type="checkbox" style="float:right;"></input><label id = "messageAuthor">'+author+'</label><label id = "messageDate">'+date+'</label>  </div>';
+	};
+	$("#colorall").click(function(){
+		$("#chat").html("");
+		var color=prompt('Enter your color name','red,blue,green,yellow');
+		for(var i = 0; i < m.length; i++){
+	    			if ((m.models[i].get('author') === $("#userName").text() && m.models[i].get('receiver') === $(".single.active").text()) || (m.models[i].get('author') === $(".single.active").text() && m.models[i].get('receiver') === $("#userName").text())) {
+	    				if(m.models[i].get('selected') ==='yes') {
+	    						m.models[i].set('selected','');
+	    						 $("#chat").append(renderMessagesInSpan(m.models[i].get('author'),m.models[i].get('text'),m.models[i].get('date'),color));
+	    						 var message= document.createElement('label');
+									message.style.color=color;
+									message.style.float='left';
+									message.innerHTML=m.models[i].get('text'); 	
+									message.id="messageText";
+									$("#chat").append(message);
+									$("#chat").append('<img class="messageEdit" src="img/edit.png"><img class="messageDelete" src="img/trash.png"><img class="messageColor" src="img/color.png"> ')
+
+	    				}
+	    				else{
+	    						$("#chat").append(renderMessagesInSpan(m.models[i].get('author'),m.models[i].get('text'),m.models[i].get('date'),color));
+	    						 var message= document.createElement('label');
+									message.style.color='black';
+									message.style.float='left';
+									message.innerHTML=m.models[i].get('text'); 	
+									message.id="messageText";
+									$("#chat").append(message);
+									$("#chat").append('<img class="messageEdit" src="img/edit.png"><img class="messageDelete" src="img/trash.png"><img class="messageColor" src="img/color.png"> ')
+	    				}
+	    			}
+	    }
+
 	});
 })
