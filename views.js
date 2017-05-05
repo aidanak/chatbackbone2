@@ -5,9 +5,24 @@ var MessageView = Marionette.View.extend({
 		text: '#messageText',
 		edit: '.messageEdit',
 		delete: '.messageDelete',
-		color:'.messageColor'
+		color:'.messageColor',
+		select:'#selected'
 	}, 
 	events: {
+		'click @ui.select':function(){
+			for(var i = 0; i < m.length; i++){
+	    			if ((m.models[i].get('author') === $("#userName").text() && m.models[i].get('receiver') === $(".single.active").text()) || (m.models[i].get('author') === $(".single.active").text() && m.models[i].get('receiver') === $("#userName").text())) {
+	    				if(m.models[i].get('text') === this.ui.text.text()){
+	    					if(m.models[i].get('selected')==''){
+	    						m.models[i].set('selected', 'yes');
+	    					}
+	    					else{
+	    						m.models[i].set('selected', '');
+	    					}
+	    				}
+	    			}
+	    		} 
+		},
 		'click @ui.delete': function() {
 			var l = new Messages();
 			if(confirm("Are you sure you want to delete message?")){
@@ -21,12 +36,15 @@ var MessageView = Marionette.View.extend({
 					    	$('img').remove('.messageDelete');
 					    	$('img').remove('.messageEdit');
 					    	$('img').remove('.messageColor');
+					    	$('input').remove('#selected');
 	    				}
 	    			}
 	    		} 
 	    		for(var i = 0; i < m.length; i++){
-	    			if ( m.models[i].get('deleted')!='yes' && (m.models[i].get('author') === $("#userName").text() && m.models[i].get('receiver') === $(".single.active").text()) || (m.models[i].get('author') === $(".single.active").text() && m.models[i].get('receiver') === $("#userName").text())) {
-	    				l.add(m.models[i]);
+	    			if ((m.models[i].get('author') === $("#userName").text() && m.models[i].get('receiver') === $(".single.active").text()) || (m.models[i].get('author') === $(".single.active").text() && m.models[i].get('receiver') === $("#userName").text())) {
+	    				if(m.models[i].get('deleted') !=='yes') {
+	    						l.add(m.models[i]);   	
+	    				}
 	    			}
 	    		}
 	    		new MessagesView({
@@ -50,12 +68,15 @@ var MessageView = Marionette.View.extend({
 								$('img').remove('.messageDelete');
 						    	$('img').remove('.messageEdit');
 						    	$('img').remove('.messageColor');
+						    	$('input').remove('#selected');
 		    				}
 		    			}
 		    		} 
 		    		for(var i = 0; i < m.length; i++){
 		    			if ((m.models[i].get('author') === $("#userName").text() && m.models[i].get('receiver') === $(".single.active").text()) || (m.models[i].get('author') === $(".single.active").text() && m.models[i].get('receiver') === $("#userName").text())) {
-		    				l.add(m.models[i]);
+		    				if(m.models[i].get('deleted') !=='yes') {
+	    						l.add(m.models[i]);   	
+	    					}
 		    			}
 		    		}
 		    	new MessagesView({
@@ -99,7 +120,7 @@ var ContactView = Marionette.View.extend({
 	ui: {
 		div: '.friend',
 		contact: '.single',
-		delete: '#trash'
+		delete: '#trash',
 	},
 	events: {
 		'click @ui.contact': function(){
@@ -110,16 +131,17 @@ var ContactView = Marionette.View.extend({
 			this.ui.contact.addClass('active');
 
 			$('label').remove('#messageAuthor');
-	    	$('label').remove('#messageText');
-	    	$('label').remove('#messageDate');
-	    	$('img').remove('.messageDelete');
+			$('label').remove('#messageText');
+			$('label').remove('#messageDate');
+			$('img').remove('.messageDelete');
 			$('img').remove('.messageEdit');
 			$('img').remove('.messageColor');
+			$('input').remove('#selected');
 	    	var k = new Messages();
 
 	    	for(var i = 0; i < m.length; i++){
 	    		if ((m.models[i].get('author') === $("#userName").text() && m.models[i].get('receiver') === this.ui.contact.text()) || (m.models[i].get('author') === this.ui.contact.text() && m.models[i].get('receiver') === $("#userName").text())) {
-	    				if(m.models[i].get('deleted') !== 'yes') {
+	    				if(m.models[i].get('deleted') !=='yes') {
 	    					k.add(m.models[i]);   	
 	    				}
 	    		}
@@ -131,11 +153,17 @@ var ContactView = Marionette.View.extend({
 		},
 		'click @ui.delete': function(){
 			if(confirm("Are you sure you want to delete conversation?")) {
+				if($(".single.active").text()===this.ui.contact.text()){
+					$('label').remove('#messageAuthor');
+			    	$('label').remove('#messageText');
+			    	$('label').remove('#messageDate');
+			    	$('img').remove('.messageDelete');
+					$('img').remove('.messageEdit');
+					$('img').remove('.messageColor');
+					$('input').remove('#selected');
+				}
 				this.ui.div.addClass('deleted');
 				$('div').remove('.friend.deleted');
-				$('label').remove('#messageAuthor');
-		    	$('label').remove('#messageText');
-		    	$('label').remove('#messageDate');
 		  	}
 		}
 	}

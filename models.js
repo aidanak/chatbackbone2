@@ -17,7 +17,8 @@ var MessageModel = Backbone.Model.extend({
 		receiver: "",
 		date: "",
 		deleted: "",
-		color: ""
+		color: "",
+		selected:""
 	}
 });
 

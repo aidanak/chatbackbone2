@@ -45,11 +45,15 @@ $(document).ready(function(){
 	var timerAddNewMessages = setInterval(function(){
 		listM = messageManager.getMessagesCollection();
 		if(m.length<listM.length){
-			console.log("here");
 	    	for(var i = m.length; i < listM.length; i++){
-	    		m.add(listM[i]);
+	    		if(listM[i].deleted !== 'yes') {
+	    			m.add(listM[i]);	
+	    		}
 	    		if ((listM[i].author === $(".single.active").text() && listM[i].receiver === userName) || (listM[i].author === userName && listM[i].receiver === $(".single.active").text()) && listM[i].deleted!='yes'){
-						p.add(listM[i]);
+						if(listM[i].deleted !== 'yes') {
+	    					p.add(listM[i]); 	
+	    				}
+
 				}
 	    	}	
 	    }
@@ -138,14 +142,67 @@ $(document).ready(function(){
 			alert("Please choose a chat");
 		}
 	});
-	$("#options").click(function(){
-		var newUserStatus = userStatus;
-		if(confirm("Would you like to change your status?")){
-			var newUserStatus = prompt('Enter your new status (active, passive, bored etc)', userStatus);
+	$("#deleteall").click(function(){
+		l=new Messages();
+		for(var i = 0; i < m.length; i++){
+	    			if ((m.models[i].get('author') === $("#userName").text() && m.models[i].get('receiver') === $(".single.active").text()) || (m.models[i].get('author') === $(".single.active").text() && m.models[i].get('receiver') === $("#userName").text())) {
+	    				if(m.models[i].get('selected') === 'yes'){
+	    					m.models[i].set('text', 'This message was deleted');
+	    					$('label').remove('#messageAuthor');
+					    	$('label').remove('#messageText');
+					    	$('label').remove('#messageDate');
+					    	$('img').remove('.messageDelete');
+					    	$('img').remove('.messageEdit');
+					    	$('img').remove('.messageColor');
+					    	$('input').remove('#selected');
+	    				}
+	    			}
+	    		} 
+	    		for(var i = 0; i < m.length; i++){
+	    			if ((m.models[i].get('author') === $("#userName").text() && m.models[i].get('receiver') === $(".single.active").text()) || (m.models[i].get('author') === $(".single.active").text() && m.models[i].get('receiver') === $("#userName").text())) {
+	    				if(m.models[i].get('deleted') !=='yes') {
+	    						l.add(m.models[i]);   	
+	    				}
+	    			}
+	    		}
+	    		new MessagesView({
+					el: '#chat',
+					collection: l
+				}).render(); 
+	});
+
+	$(".status").click(function(){
+		$(".status").css('display', 'none');
+	    $('#statusentry')
+	        .val($('#userStatus').text())
+	        .css('display', '')
+	        .focus();
+	});
+	$("#statusentry").keyup(function(e){
+		if(e.keyCode==13){
 			var status = document.getElementById('userStatus');
-			status.innerHTML = newUserStatus;
-			user.set({status: newUserStatus});
+			status.innerHTML = $("#statusentry").val();
+			user.set({status: $("#statusentry").val()});
 			userManager.changeUserModel(user);
+			$("#statusentry").css('display', 'none');
+			$(".status").css('display', '');
+		}
+	});
+	$(".title").click(function(){
+		$(".title").css('display', 'none');
+	    $('#nameentry')
+	        .val($('#userName').text())
+	        .css('display', '')
+	        .focus();
+	});
+	$("#nameentry").keyup(function(e){
+		if(e.keyCode==13){
+			var status = document.getElementById('userName');
+			status.innerHTML = $("#nameentry").val();
+			user.set({status: $("#nameentry").val()});
+			userManager.changeUserModel(user);
+			$("#nameentry").css('display', 'none');
+			$(".title").css('display', '');
 		}
 	});
 	window.p = p;
@@ -155,16 +212,11 @@ $(document).ready(function(){
 			if(confirm("Are you sure you want to delete the message history?")) {
 				for(var i = 0; i < m.length; i++){
 					if((m.models[i].get('author') === receiver && m.models[i].get('receiver') === userName) || (m.models[i].get('receiver') === receiver && m.models[i].get('author') === userName)) {
-						m.models[i].set('delete','yes');
+						m.models[i].set('deleted','yes');
 
 					}
 				}
-				$('label').remove('#messageAuthor');
-		    	$('label').remove('#messageText');
-		    	$('label').remove('#messageDate');
-		    	$('img').remove('.messageDelete');
-				$('img').remove('.messageEdit');
-				$('img').remove('.messageColor');
+				$("#chat").html("");
 		  	}
 		} else {
 			alert("Please chose a chat");
